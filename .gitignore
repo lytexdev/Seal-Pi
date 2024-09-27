@@ -1,0 +1,32 @@
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+
+# Log files
+*.log
+*.logs
+
+# Virtual environment files
+env/
+venv/
+.venv/
+*.egg-info/
+.env
+
+# Flask-specific files
+instance/
+*.sqlite
+*.sqlite-journal
+*.sqlite3
+*.db
+
+# IDE and editor files
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Miscellaneous
+*.pid
+*.seed
+*.tmp
