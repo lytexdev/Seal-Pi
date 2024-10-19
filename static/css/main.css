@@ -1,0 +1,10 @@
+body {
+    background: #272727;
+    color: #f5f5f5;
+}
+
+.mirrored {
+    transform: scaleX(-1);
+    display: flex;
+    justify-content: right;
+}
