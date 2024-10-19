@@ -1,0 +1,15 @@
+#dashboard {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .dashboard-greeting {
+        position: absolute;
+        top: 8%;
+        left: 9%;
+        font-size: 1.3rem;
+        color: #a90b0b;
+    }
+}

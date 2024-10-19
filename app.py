@@ -1,10 +1,10 @@
-from flask import Flask, render_template, Response, jsonify
+from flask import Flask, render_template, Response, jsonify, send_from_directory
 
 from config import Config
 from models import db, User
 from utils.camera import generate_frames, get_camera_info
 
-app = Flask(__name__)
+app = Flask('Seal-Pi', template_folder='templates', static_folder='static')
 app.secret_key = Config.SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///seal.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -24,10 +24,6 @@ def robots_txt():
         app.logger.error(f"Error generating robots.txt: {str(e)}")
         return Response("Error generating robots.txt", status=500)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 @app.route('/api/camera-feed')
 def camera_feed():
     return Response(generate_frames(Config.VIDEO_CAPTURE_DEVICE), mimetype='multipart/x-mixed-replace; boundary=frame')
@@ -36,6 +32,11 @@ def camera_feed():
 def camera_info():
     camera_info = get_camera_info(Config.VIDEO_CAPTURE_DEVICE)
     return jsonify(camera_info)
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
+    return render_template('index.html')
 
 def init_db():
     with app.app_context():

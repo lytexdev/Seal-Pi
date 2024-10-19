@@ -21,6 +21,10 @@
                 color: $primary-color;
             }
         }
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+        }
     }
 
     .camera-feed {
