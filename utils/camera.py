@@ -8,7 +8,6 @@ current_time = ""
 def generate_frames(camera_slot):
     global fps, current_time
     camera = cv2.VideoCapture(camera_slot)
-
     prev_time = time.time()
 
     while True:

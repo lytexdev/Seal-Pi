@@ -1,9 +1,15 @@
 from flask import Flask, render_template, Response, jsonify
+
 from config import Config
-from util.camera import generate_frames, get_camera_info
+from models import db, User
+from utils.camera import generate_frames, get_camera_info
 
 app = Flask(__name__)
 app.secret_key = Config.SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///seal.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
 
 @app.after_request
 def add_header(response):
@@ -31,5 +37,15 @@ def camera_info():
     camera_info = get_camera_info(Config.VIDEO_CAPTURE_DEVICE)
     return jsonify(camera_info)
 
+def init_db():
+    with app.app_context():
+        db.create_all()
+        app.logger.info("Database initialized")
+
+init_db()
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=Config.PORT, debug=True)
+    try:
+        app.run(host='0.0.0.0', port=Config.PORT, debug=True)
+    except Exception as e:
+        app.logger.error(f"Error starting server: {str(e)}")
