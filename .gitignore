@@ -1,3 +1,11 @@
+# Seal-Pi
+static/assets/images/*
+!static/assets/images/.gitkeep
+static/assets/*.js
+static/assets/*.css
+static/assets/*.ttf
+
+
 # Byte-compiled Python files
 __pycache__/
 *.py[cod]
@@ -30,3 +38,9 @@ instance/
 *.pid
 *.seed
 *.tmp
+
+# Node
+node_modules
+dist
+dist-ssr
+*.local

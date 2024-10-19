@@ -1,0 +1,78 @@
+#!/bin/bash
+
+run_build_script() {
+    cd ./frontend || exit
+    if ! npm run build; then
+        echo "Error during npm run build:"
+        exit 1
+    else
+        echo "npm run build completed successfully."
+    fi
+    cd ..
+
+    src_images_folder="./frontend/src/assets/images"
+    dist_images_folder="./frontend/dist/assets/images"
+
+    if [ -d "$src_images_folder" ];then
+        mkdir -p "$dist_images_folder"
+        cp -r "$src_images_folder/"* "$dist_images_folder/"
+    fi
+
+    dist_folder="./frontend/dist/assets"
+    static_folder="./static/assets"
+
+    mkdir -p "$static_folder"
+
+    find "$dist_folder" -type f | while read -r file; do
+        relative_path="${file#$dist_folder/}"
+        new_file_path="$static_folder/$relative_path"
+
+        if [[ $file == *.css ]]; then
+            new_file_path="$static_folder/main.css"
+        elif [[ $file == *.js ]]; then
+            new_file_path="$static_folder/main.js"
+        fi
+
+        mkdir -p "$(dirname "$new_file_path")"
+        echo "Moving $file to $new_file_path"
+        mv "$file" "$new_file_path"
+    done
+
+    rm -rf "$dist_folder"
+    echo -e "Frontend build completed successfully!"
+}
+
+print_help() {
+    echo ""
+    echo "Seal-Pi CLI"
+    echo "Usage: $0 {build}"
+    echo
+    echo "Commands:"
+    echo "  build                                   Build the frontend"
+    echo ""
+}
+
+run_server() {
+    source .venv/bin/activate
+    "$PYTHON_CMD" app.py
+}
+
+case "$1" in
+    build)
+        run_build_script
+        ;;
+    install)
+        run_install_script
+        ;;
+    run)
+        run_server
+        ;;
+    help)
+        print_help
+        exit 1
+        ;;
+    *)
+        print_help
+        exit 1
+        ;;
+esac

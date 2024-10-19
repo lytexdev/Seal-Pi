@@ -1,0 +1,18 @@
+@use './variables' as *;
+@import './components/logo';
+@import './pages/camera-page';
+
+body {
+    background-color: $background-color;
+    color: $primary-color;
+    font-family: monospace, sans-serif, Arial;
+    font-size: 1em;
+}
+
+p {
+    font-size: 1.25em;
+}
+
+.flex {
+    display: flex;
+}
