@@ -9,10 +9,12 @@
 </head>
 
 <body>
-    <h1>Live Camera</h1>
-
-    <section id="live-camera" class="mirrored">
-        <img src="{{ url_for('camera_feed') }}" alt="Live Camera">
+    <section id="liveCamera">
+        <h1>Live Camera</h1>
+        
+        <div class="camera-feed" class="mirrored">
+            <img src="{{ url_for('camera_feed') }}" alt="Live Camera">
+        </div>
     </section>
 </body>
 
