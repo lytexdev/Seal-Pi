@@ -1,6 +1,7 @@
 @use './variables' as *;
-@import './components/logo';
-@import './pages/camera-page';
+@use 'components/font';
+@use 'components/logo';
+@use 'pages/camera-page';
 
 body {
     background-color: $background-color;
@@ -9,8 +10,10 @@ body {
     font-size: 1em;
 }
 
-p {
-    font-size: 1.25em;
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .flex {
