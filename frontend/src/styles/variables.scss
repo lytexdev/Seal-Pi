@@ -1,7 +1,23 @@
+@use "sass:color";
 /**
-* SCSS Variables
-**/
+ * Seal-Pi SCSS Variables
+ **/
 
+// Colors
 $primary-color: #a70000;
 $secondary-color: #860000;
 $background-color: #090909;
+$text-color: #ffffff;
+$border-color: #333333;
+$input-background-color: #1a1a1a;
+$input-border-color: #444444;
+$input-text-color: #ffffff;
+$hover-color: color.adjust($primary-color, $lightness: 10%);
+$error-color: #ff4d4d;
+
+// Borders and Shadows
+$border-radius: 4px;
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+// Transition
+$transition-speed: 0.3s ease-in-out;

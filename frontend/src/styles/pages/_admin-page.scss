@@ -1,0 +1,37 @@
+@use '../variables' as *;
+
+#administration {
+    .user-section {
+        margin-top: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .user-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: $background-color;
+        border-radius: $border-radius;
+        border: 1px solid $border-color;
+    }
+
+    .user-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .add-user-form {
+        margin-top: 3.5rem;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-start;
+    }
+}

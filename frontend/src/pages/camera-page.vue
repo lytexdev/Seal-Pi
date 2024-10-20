@@ -15,7 +15,7 @@
         </div>
 
         <div class="camera-feed">
-            <img :src="cameraFeedUrl" alt="Live Camera">
+            <img :src="cameraFeedUrl" alt="No Camera Feed Available">
         </div>
     </section>
 </template>

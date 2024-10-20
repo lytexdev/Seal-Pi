@@ -1,8 +1,10 @@
 @use './variables' as *;
+@use './components';
 @use 'components/font';
 @use 'components/logo';
-@use 'pages/camera-page';
 @use 'pages/dashboard-page';
+@use 'pages/admin-page';
+@use 'pages/camera-page';
 
 body {
     background-color: $background-color;

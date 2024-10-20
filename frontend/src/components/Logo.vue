@@ -1,5 +1,5 @@
 <template>
-    <div class="logo flex">
+    <div class="logo">
         <img class="logo-image" :src="logoUrl" alt="Seal-Pi" height="64px" width="64px">
         <h1>{{ title }}</h1>
     </div>
