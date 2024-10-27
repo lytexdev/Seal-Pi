@@ -5,31 +5,38 @@
         <section class="user-section">
             <h2>Users</h2>
             <ul>
-                <li class="user-item">
-                    <b>lytex</b>
+                <li v-for="user in users" :key="user.id" class="user-item">
+                    <b>{{ user.username }}</b>
+                    <span>{{ user.email }}</span>
                     <div class="user-actions">
-                        <button class="button button--secondary">Edit</button>
-                        <button class="button button--disabled">Delete</button>
+                        <button class="button button-secondary" @click="selectUser(user)">Edit</button>
+                        <button class="button button-disabled" @click="deleteUser(user.id)">Delete</button>
                     </div>
                 </li>
             </ul>
 
             <div class="add-user-form">
-                <h3>Add New User</h3>
+                <h3 v-if="!editMode">Add New User</h3>
+                <h3 v-else>Edit User</h3>
                 <div class="form-group">
                     <label class="label" for="username">Username</label>
-                    <input  type="text" id="username" class="input" placeholder="Enter username" />
+                    <input v-model="userForm.username" type="text" id="username" class="input"
+                        placeholder="Enter username" />
                 </div>
                 <div class="form-group">
                     <label class="label" for="email">Email</label>
-                    <input type="email" id="email" class="input" placeholder="Enter email" />
+                    <input v-model="userForm.email" type="email" id="email" class="input" placeholder="Enter email" />
                 </div>
                 <div class="form-group">
                     <label class="label" for="password">Password</label>
-                    <input type="password" id="password" class="input" placeholder="Enter password" />
+                    <input v-model="userForm.password" type="password" id="password" class="input"
+                        placeholder="Enter password" />
                 </div>
                 <div class="form-actions">
-                    <button class="button">Add User</button>
+                    <button class="button" @click="editMode ? updateUser() : addUser()">
+                        {{ editMode ? "Update User" : "Add User" }}
+                    </button>
+                    <button class="button button-secondary" v-if="editMode" @click="cancelEdit">Cancel</button>
                 </div>
             </div>
         </section>
@@ -37,5 +44,72 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
 import Logo from '../components/Logo.vue'
+
+const users = ref([])
+const editMode = ref(false)
+const userForm = ref({
+    id: null,
+    username: '',
+    email: '',
+    password: ''
+})
+
+const fetchUsers = async () => {
+    try {
+        const response = await axios.get('/api/users')
+        users.value = response.data
+    } catch (error) {
+        console.error("Error fetching users:", error)
+    }
+}
+
+const addUser = async () => {
+    try {
+        await axios.post('/api/users', userForm.value)
+        fetchUsers()
+        resetForm()
+    } catch (error) {
+        console.error("Error adding user:", error)
+    }
+}
+
+const selectUser = (user) => {
+    userForm.value = { ...user, password: '' }
+    editMode.value = true
+}
+
+const updateUser = async () => {
+    try {
+        await axios.put(`/api/users/${userForm.value.id}`, userForm.value)
+        fetchUsers()
+        resetForm()
+    } catch (error) {
+        console.error("Error updating user:", error)
+    }
+}
+
+const deleteUser = async (id) => {
+    try {
+        await axios.delete(`/api/users/${id}`)
+        fetchUsers()
+    } catch (error) {
+        console.error("Error deleting user:", error)
+    }
+}
+
+const resetForm = () => {
+    userForm.value = { id: null, username: '', email: '', password: '' }
+    editMode.value = false
+}
+
+const cancelEdit = () => {
+    resetForm()
+}
+
+onMounted(() => {
+    fetchUsers()
+})
 </script>

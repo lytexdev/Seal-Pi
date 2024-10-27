@@ -16,7 +16,7 @@
         box-shadow: variables.$box-shadow;
     }
 
-    &--secondary {
+    &-secondary {
         background-color: variables.$secondary-color;
         border-color: variables.$secondary-color;
 
@@ -25,7 +25,7 @@
         }
     }
 
-    &--disabled {
+    &-disabled {
         background-color: color.adjust(variables.$primary-color, $lightness: 30%);
         border-color: color.adjust(variables.$primary-color, $lightness: 30%);
         cursor: not-allowed;
@@ -73,8 +73,7 @@
     }
 }
 
-.checkbox,
-.radio {
+.checkbox, .radio {
     display: flex;
     align-items: center;
 
