@@ -2,8 +2,7 @@
     <section id="administration">
         <Logo title="Administration" />
 
-        <section class="user-section">
-            <h2>Users</h2>
+        <Accordion title="Users" :defaultOpen="true">
             <ul>
                 <li v-for="user in users" :key="user.id" class="user-item">
                     <b>{{ user.username }}</b>
@@ -39,7 +38,7 @@
                     <button class="button button-secondary" v-if="editMode" @click="cancelEdit">Cancel</button>
                 </div>
             </div>
-        </section>
+        </Accordion>
     </section>
 </template>
 
@@ -47,6 +46,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import Logo from '../components/Logo.vue'
+import Accordion from '../components/Accordion.vue';
 
 const users = ref([])
 const editMode = ref(false)
