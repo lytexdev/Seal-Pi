@@ -83,6 +83,10 @@ const selectUser = (user) => {
 
 const updateUser = async () => {
     try {
+        if (!confirm("Are you sure you want to update this user?")) {
+            return
+        }
+
         await axios.put(`/api/users/${userForm.value.id}`, userForm.value)
         fetchUsers()
         resetForm()
@@ -93,6 +97,9 @@ const updateUser = async () => {
 
 const deleteUser = async (id) => {
     try {
+        if (!confirm("Are you sure you want to delete this user?")) {
+            return
+        }
         await axios.delete(`/api/users/${id}`)
         fetchUsers()
     } catch (error) {
