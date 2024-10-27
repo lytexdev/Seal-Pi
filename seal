@@ -45,27 +45,17 @@ run_build_script() {
 print_help() {
     echo ""
     echo "Seal-Pi CLI"
-    echo "Usage: $0 {build}"
+    echo "Usage: $0 {help|build}"
     echo
     echo "Commands:"
+    echo "  help                                    Show help message"
     echo "  build                                   Build the frontend"
     echo ""
-}
-
-run_server() {
-    source .venv/bin/activate
-    "$PYTHON_CMD" app.py
 }
 
 case "$1" in
     build)
         run_build_script
-        ;;
-    install)
-        run_install_script
-        ;;
-    run)
-        run_server
         ;;
     help)
         print_help
