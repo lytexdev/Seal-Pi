@@ -19,6 +19,11 @@
         background-color: $background-color;
         border-radius: $border-radius;
         border: 1px solid $border-color;
+        color: $text-color;
+
+        .admin-badge {
+            color: $primary-color;
+        }
     }
 
     .user-actions {
