@@ -35,7 +35,7 @@
                         <label class="label" for="is_admin">Admin</label>
                         <input v-model="userForm.is_admin" type="checkbox" id="is_admin" />
                     </div>
-                    <i>Admin users can manage other users and and shutdown the system</i>
+                    <i>Only admin users can visit the administration page</i>
                 </div>
 
                 <div class="form-actions">
