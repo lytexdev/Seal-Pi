@@ -1,11 +1,10 @@
 <template>
     <section id="administration">
         <Logo title="Administration" />
-
-        <Accordion title="Users" :defaultOpen="true">
+        <Accordion title="User-Management" :defaultOpen="false">
             <ul>
                 <li v-for="user in users" :key="user.id" class="user-item">
-                    <b>{{ user.username }}</b>
+                    <b>{{ user.username }} <span v-if="user.is_admin" class="admin-badge">(Admin)</span></b>
                     <span>{{ user.email }}</span>
                     <div class="user-actions">
                         <button class="button button-secondary" @click="selectUser(user)">Edit</button>
@@ -31,6 +30,14 @@
                     <input v-model="userForm.password" type="password" id="password" class="input"
                         placeholder="Enter password" />
                 </div>
+                <div class="form-group-checkbox">
+                    <div class="form-group">
+                        <label class="label" for="is_admin">Admin</label>
+                        <input v-model="userForm.is_admin" type="checkbox" id="is_admin" />
+                    </div>
+                    <i>Admins can manage other users and shutdown the computer</i>
+                </div>
+
                 <div class="form-actions">
                     <button class="button" @click="editMode ? updateUser() : addUser()">
                         {{ editMode ? "Update User" : "Add User" }}
@@ -46,7 +53,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import Logo from '../components/Logo.vue'
-import Accordion from '../components/Accordion.vue';
+import Accordion from '../components/Accordion.vue'
 
 const users = ref([])
 const editMode = ref(false)
@@ -54,7 +61,8 @@ const userForm = ref({
     id: null,
     username: '',
     email: '',
-    password: ''
+    password: '',
+    is_admin: false
 })
 
 const fetchUsers = async () => {
@@ -108,7 +116,7 @@ const deleteUser = async (id) => {
 }
 
 const resetForm = () => {
-    userForm.value = { id: null, username: '', email: '', password: '' }
+    userForm.value = { id: null, username: '', email: '', password: '', is_admin: false }
     editMode.value = false
 }
 

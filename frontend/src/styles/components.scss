@@ -73,6 +73,28 @@
     }
 }
 
+.form-group-checkbox {
+    margin-bottom: 1rem;
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+        
+        .label {
+            font-size: 16px;
+        }
+
+        .input {
+            height: 16px
+        }
+    }
+
+    i {
+        font-size: 12px;
+    }
+}
+
 .checkbox, .radio {
     display: flex;
     align-items: center;

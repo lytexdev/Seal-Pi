@@ -3,8 +3,8 @@
         <div class="section-header" @click="toggleSection">
             <h2>{{ title }}</h2>
             <div class="toggle-button">
-                <img src="../assets/open-folder.svg" alt="Hide" v-if="isOpen" height="36px" width="36px">
-                <img src="../assets/close-folder.svg" alt="Show" v-else height="32px" width="32px">
+                <img src="../assets/open-folder.svg" v-if="isOpen" alt="Hide" title="Hide" height="36px" width="36px">
+                <img src="../assets/close-folder.svg" v-else alt="Show" title="Show" height="32px" width="32px">
             </div>
         </div>
         <div v-if="isOpen" class="section-content">
