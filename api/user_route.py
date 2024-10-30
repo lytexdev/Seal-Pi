@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, session
+from werkzeug.security import check_password_hash
 from models import db, User
 
 user_bp = Blueprint('user', __name__)
@@ -44,6 +45,7 @@ def update_user(user_id):
             return jsonify({"message": "User updated successfully"})
         except Exception as e:
             return jsonify({"message": f"Error updating user: {str(e)}"}), 500
+        
     return jsonify({"message": "User not found"}), 404
 
 @user_bp.route('/api/users/<int:user_id>', methods=['DELETE'])
@@ -56,4 +58,37 @@ def delete_user(user_id):
             return jsonify({"message": "User deleted successfully"})
         except Exception as e:
             return jsonify({"message": f"Error deleting user: {str(e)}"}), 500
+        
     return jsonify({"message": "User not found"}), 404
+
+@user_bp.route('/api/user-status', methods=['GET'])
+def get_user_status():
+    user_id = session.get('user_id')
+    is_admin = session.get('is_admin', False)
+    if user_id:
+        return jsonify({"is_logged_in": True, "is_admin": is_admin}), 200
+    
+    return jsonify({"is_logged_in": False, "is_admin": False}), 200
+
+@user_bp.route('/api/login', methods=['POST'])
+def login_user():
+    data = request.json
+    identifier = data.get('username_or_email')
+    password = data.get('password')
+
+    if not identifier or not password:
+        return jsonify({"message": "Username/Email and password are required"}), 400
+
+    user = User.query.filter((User.username == identifier) | (User.email == identifier)).first()
+    if user and check_password_hash(user.password, password):
+        session['user_id'] = user.id
+        session['is_admin'] = user.is_admin
+        return jsonify({"message": "Login successful", "is_admin": user.is_admin}), 200
+    
+    return jsonify({"message": "Invalid username/email or password"}), 401
+
+@user_bp.route('/api/logout', methods=['POST'])
+def logout_user():
+    session.pop('user_id', None)
+    session.pop('is_admin', None)
+    return jsonify({"message": "Logout successful"}), 200
