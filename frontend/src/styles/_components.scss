@@ -32,8 +32,7 @@
     }
 }
 
-input, .input {
-    width: 100%;
+input {
     padding: 0.5rem;
     font-size: 1rem;
     background-color: variables.$input-background-color;
@@ -51,6 +50,10 @@ input, .input {
     &--error {
         border-color: variables.$error-color;
     }
+}
+
+.input {
+    width: 100%;
 }
 
 .label {
