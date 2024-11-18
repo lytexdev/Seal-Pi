@@ -1,6 +1,17 @@
 <template>
     <section id="administration">
         <Logo title="Administration" />
+
+        <div class="admin-navigation-actions">
+            <div class="admin-nav-link">
+                <router-link to="/camera" class="button">Camera</router-link>
+            </div>
+
+            <div class="admin-logout">
+                <button class="button button-secondary" @click="logout">Logout</button>
+            </div>
+        </div>
+
         <Accordion title="User-Management" :defaultOpen="false">
             <ul>
                 <li v-for="user in users" :key="user.id" class="user-item">
@@ -52,9 +63,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 import Logo from '../components/Logo.vue'
 import Accordion from '../components/Accordion.vue'
 
+const router = useRouter()
 const users = ref([])
 const editMode = ref(false)
 const userForm = ref({
@@ -118,6 +131,15 @@ const deleteUser = async (id) => {
 const resetForm = () => {
     userForm.value = { id: null, username: '', email: '', password: '', is_admin: false }
     editMode.value = false
+}
+
+const logout = async () => {
+    try {
+        await axios.post('/api/logout')
+        router.push('/login')
+    } catch (error) {
+        console.error("Error during logout:", error)
+    }
 }
 
 const cancelEdit = () => {

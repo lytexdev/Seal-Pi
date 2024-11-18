@@ -1,33 +1,33 @@
-@use "sass:color";
-@use 'variables';
+@use 'sass:color';
+@use 'variables' as *;
 
 .button {
     display: inline-block;
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    color: variables.$text-color;
-    background-color: variables.$primary-color;
-    border: 1px solid variables.$primary-color;
-    border-radius: variables.$border-radius;
-    transition: background-color variables.$transition-speed, box-shadow variables.$transition-speed;
+    color: $text-color;
+    background-color: $primary-color;
+    border: 1px solid $primary-color;
+    border-radius: $border-radius;
+    transition: background-color $transition-speed, box-shadow $transition-speed;
 
     &:hover {
-        background-color: variables.$hover-color;
-        box-shadow: variables.$box-shadow;
+        background-color: $hover-color;
+        box-shadow: $box-shadow;
     }
 
     &-secondary {
-        background-color: variables.$secondary-color;
-        border-color: variables.$secondary-color;
+        background-color: $secondary-color;
+        border-color: $secondary-color;
 
         &:hover {
-            background-color: color.adjust(variables.$secondary-color, $lightness: 10%);
+            background-color: color.adjust($secondary-color, $lightness: 10%);
         }
     }
 
     &-disabled {
-        background-color: color.adjust(variables.$primary-color, $lightness: 30%);
-        border-color: color.adjust(variables.$primary-color, $lightness: 30%);
+        background-color: color.adjust($primary-color, $lightness: 30%);
+        border-color: color.adjust($primary-color, $lightness: 30%);
         opacity: 0.6;
     }
 }
@@ -35,20 +35,20 @@
 input {
     padding: 0.5rem;
     font-size: 1rem;
-    background-color: variables.$input-background-color;
-    color: variables.$input-text-color;
-    border: 1px solid variables.$input-border-color;
-    border-radius: variables.$border-radius;
-    transition: border-color variables.$transition-speed, box-shadow variables.$transition-speed;
+    background-color: $input-background-color;
+    color: $input-text-color;
+    border: 1px solid $input-border-color;
+    border-radius: $border-radius;
+    transition: border-color $transition-speed, box-shadow $transition-speed;
 
     &:focus {
-        border-color: variables.$primary-color;
-        box-shadow: 0 0 5px rgba(variables.$primary-color, 0.8);
+        border-color: $primary-color;
+        box-shadow: 0 0 5px rgba($primary-color, 0.8);
         outline: none;
     }
 
     &--error {
-        border-color: variables.$error-color;
+        border-color: $error-color;
     }
 }
 
@@ -60,7 +60,7 @@ input {
     display: block;
     font-size: 0.875rem;
     margin-bottom: 0.5rem;
-    color: color.adjust(variables.$text-color, $lightness: 40%);
+    color: color.adjust($text-color, $lightness: 40%);
 }
 
 .form-group {
@@ -114,15 +114,15 @@ input {
 .form {
     max-width: 600px;
     margin: 0 auto;
-    background-color: variables.$background-color;
+    background-color: $background-color;
     padding: 1.5rem;
-    border-radius: variables.$border-radius;
-    box-shadow: variables.$box-shadow;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
 
     .form-title {
         font-size: 1.25rem;
         margin-bottom: 1rem;
-        color: variables.$text-color;
+        color: $text-color;
     }
 
     .form-actions {

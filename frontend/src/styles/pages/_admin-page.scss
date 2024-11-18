@@ -1,6 +1,20 @@
-@use '../variables' as *;
+@use 'sass:color';
+@use '../variables.scss' as *;
 
 #administration {
+    .admin-navigation-actions {
+        display: flex;
+        justify-content: space-between;
+
+        .admin-nav-link {
+            .button {
+                text-decoration: none;
+                color: $text-color;
+                background-color: color.adjust($primary-color, $lightness: -10%);
+            }
+        }
+    }
+
     .user-section {
         margin-top: 20px;
     }
