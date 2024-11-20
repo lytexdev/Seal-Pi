@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <Accordion title="User-Management" :defaultOpen="false">
+        <Accordion title="User Management" :defaultOpen="false">
             <ul>
                 <li v-for="user in users" :key="user.id" class="user-item">
                     <b>{{ user.username }} <span v-if="user.is_admin" class="admin-badge">(Admin)</span></b>
@@ -57,6 +57,10 @@
                 </div>
             </div>
         </Accordion>
+
+        <Accordion title="My Account" :defaultOpen="false">
+            <MFASetup />
+        </Accordion>
     </section>
 </template>
 
@@ -66,6 +70,7 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 import Logo from '../components/Logo.vue'
 import Accordion from '../components/Accordion.vue'
+import MFASetup from '../components/MFASetup.vue'
 
 const router = useRouter()
 const users = ref([])

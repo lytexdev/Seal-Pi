@@ -2,3 +2,4 @@ flask
 flask-sqlalchemy
 opencv-python
 python-dotenv
+pyotp

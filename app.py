@@ -2,6 +2,7 @@ from flask import Flask, render_template, Response
 from config import Config
 from models import db, User
 from api.user_route import user_bp
+from api.mfa_route import mfa_bp
 from api.camera_route import camera_bp
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -9,8 +10,8 @@ app.config.from_object(Config)
 db.init_app(app)
 
 app.register_blueprint(user_bp)
+app.register_blueprint(mfa_bp)
 app.register_blueprint(camera_bp)
-
 
 @app.after_request
 def add_header(response):

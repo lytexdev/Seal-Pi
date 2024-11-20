@@ -55,3 +55,12 @@
         gap: 10px;
     }
 }
+
+.totp-qrcode img {
+    margin: 1rem 0;
+    max-width: 250px;
+}
+
+.backup-codes {
+    color: $text-color
+}

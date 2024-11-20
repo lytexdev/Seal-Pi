@@ -25,6 +25,15 @@
         }
     }
 
+    &-danger {
+        background-color: $error-color;
+        border-color: $error-color;
+
+        &:hover {
+            background-color: color.adjust($error-color, $lightness: 10%);
+        }
+    }
+
     &-disabled {
         background-color: color.adjust($primary-color, $lightness: 30%);
         border-color: color.adjust($primary-color, $lightness: 30%);
@@ -133,4 +142,13 @@ input {
             margin-left: 0.5rem;
         }
     }
+}
+
+code {
+    display: block;
+    background-color: #1a1a1a;
+    color: #dedede;
+    padding: 0.7rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
 }

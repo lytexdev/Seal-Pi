@@ -4,7 +4,6 @@ from config import Config
 
 camera_bp = Blueprint('camera', __name__)
 
-
 @camera_bp.route('/api/camera-feed')
 def camera_feed():
     return Response(generate_frames(Config.VIDEO_CAPTURE_DEVICE), mimetype='multipart/x-mixed-replace; boundary=frame')
