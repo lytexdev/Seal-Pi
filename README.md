@@ -17,7 +17,7 @@ git clone https://github.com/lytexdev/Seal-Pi.git
 cd Seal-Pi
 ```
 
-**Copy .env.example to .env and adjust it**
+**Copy .env.example to .env and adjust it.**
 **Please note that the SECRET_KEY should be a random string!** 
 ```bash
 cp .env.example .env

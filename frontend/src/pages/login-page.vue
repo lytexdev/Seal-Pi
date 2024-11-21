@@ -14,8 +14,9 @@
 
             <div v-if="mfaRequired" class="form-group">
                 <label for="totp_code">TOTP Code</label>
-                <input v-model="totpCode" type="text" id="totp_code" placeholder="Enter your 2-FA code" required />
+                <input v-model="totpCode" type="text" id="totp_code" placeholder="Enter your 2-FA code" />
             </div>
+
             <button type="submit" class="button button-primary">Login</button>
         </form>
     </section>
