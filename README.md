@@ -1,7 +1,12 @@
 # Seal-Pi
 
 ## Overview
-Seal-Pi is a Flask-Vue based web-application developed for RaspberryPi to display camera footage and soon more.
+Seal-Pi is a Flask-Vue based web-application developed for RaspberryPi's to display camera footage and soon more.
+
+## Features
+- User Management
+- 2-Factor-Authentication (TOTP)
+- Security Camera
 
 ## Installation
 ***There will be soon a docker-compose setup***
@@ -13,6 +18,7 @@ cd Seal-Pi
 ```
 
 **Copy .env.example to .env and adjust it**
+**Please note that the SECRET_KEY should be a random string!** 
 ```bash
 cp .env.example .env
 ```
@@ -31,7 +37,7 @@ npm install
 
 **Start Flask server**
 ```bash
-python3 app.py
+python app.py
 ```
 
 ## License

@@ -11,7 +11,7 @@ class User(db.Model):
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
 
     mfa_enabled = db.Column(db.Boolean, default=False, nullable=False)
-    mfa_type = db.Column(db.String(20))  # e.g., "TOTP" or "Yubikey"
+    mfa_type = db.Column(db.String(20))
     mfa_secret = db.Column(db.String(120))
     backup_codes = db.Column(db.Text)
 
