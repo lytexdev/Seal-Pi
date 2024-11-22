@@ -13,7 +13,9 @@ db.init_app(app)
 CORS(app, resources={r"/api/*": {
     "origins":Config.CORS_ORIGINS.split(","),
     "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    "allow_headers": ["Content-Type", "Authorization"]
+    "allow_headers": ["Content-Type", "Authorization"],
+    "supports_credentials": True,
+    "max_age": 3600
     }})
 
 app.register_blueprint(user_bp)
@@ -39,6 +41,10 @@ def validate_referer():
 @app.after_request
 def add_header(response):
     response.headers['X-Robots-Tag'] = 'noindex, nofollow'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload'
     return response
 
 @app.route('/robots.txt')
