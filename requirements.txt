@@ -1,5 +1,6 @@
 flask
 flask-sqlalchemy
+flask-cors
 opencv-python
 python-dotenv
 pyotp
