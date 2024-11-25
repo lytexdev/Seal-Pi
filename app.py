@@ -1,35 +1,40 @@
 from flask import Flask, render_template, Response, request, abort
 from flask_cors import CORS
+from zeroconf import Zeroconf, ServiceInfo
+import socket
 from config import Config
-from models import db, User
+from models import db, User, Device
 from api.user_route import user_bp
 from api.mfa_route import mfa_bp
 from api.camera_route import camera_bp
+from api.device_route import device_bp
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config.from_object(Config)
 db.init_app(app)
 
-CORS(app, resources={r"/api/*": {
-    "origins":Config.CORS_ORIGINS.split(","),
-    "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    "allow_headers": ["Content-Type", "Authorization"],
-    "supports_credentials": True,
-    "max_age": 3600
-    }})
+CORS(app, resources={
+    r"/api/*": {
+        "origins": Config.CORS_ORIGINS.split(","),
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True,
+        "max_age": 3600
+    }
+})
 
 app.register_blueprint(user_bp)
 app.register_blueprint(mfa_bp)
 app.register_blueprint(camera_bp)
+app.register_blueprint(device_bp)
 
 @app.before_request
 def check_ip_access():
     client_ip = request.remote_addr
-    blacklist = Config.IP_BLACKLIST
 
-    if client_ip in blacklist:
+    if client_ip in Config.IP_BLACKLIST:
         app.logger.warning(f"Blocked access from blacklisted IP: {client_ip}")
-        abort(403, description="Access denied")
+        abort(403, description="Access denied (IP blacklisted)")
 
 @app.before_request
 def validate_referer():
@@ -72,7 +77,21 @@ def create_example_admin():
         db.session.commit()
         app.logger.info("Example Admin user created, please change the default password!")
 
+def advertise_server():
+    zeroconf = Zeroconf()
+    service_info = ServiceInfo(
+        "_http._tcp.local.",
+        "SealPi-Server._http._tcp.local.",
+        addresses=[socket.inet_aton("0.0.0.0")],
+        port=Config.PORT,
+        properties={},
+        server="sealpi.local.",
+    )
+    zeroconf.register_service(service_info)
+    print("Server advertised via mDNS")
+
 init_db()
 
 if __name__ == '__main__':
+    advertise_server()
     app.run(host='0.0.0.0', port=Config.PORT, debug=True)

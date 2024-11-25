@@ -1,5 +1,7 @@
+import time
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime, timezone
 
 db = SQLAlchemy()
 
@@ -27,6 +29,14 @@ class User(db.Model):
         codes = [secrets.token_hex(8) for _ in range(count)]
         self.backup_codes = ",".join(codes)
         return codes
+
+
+class Device(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    token = db.Column(db.String(120), nullable=False, unique=True)
+    ip = db.Column(db.String(120), nullable=False)
+    last_seen = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
 
 
 if __name__ == '__main__':

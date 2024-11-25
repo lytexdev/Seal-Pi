@@ -15,3 +15,5 @@ class Config:
 
     SQLALCHEMY_DATABASE_URI = 'sqlite:///seal.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    SERVER_TOKEN = os.getenv('SERVER_TOKEN', 'secure_server_token')

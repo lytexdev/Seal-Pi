@@ -4,3 +4,5 @@ flask-cors
 opencv-python
 python-dotenv
 pyotp
+requests
+zeroconf
